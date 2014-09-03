@@ -1,0 +1,71 @@
+<div class="page-header"><h1>Tech Talent Twitter <small>A Totally Original Idea</small></h1></div>
+
+<% if user_signed_in? %>
+
+	<!-- There are two conditions here:
+	1. They have signed back in and have tweets
+	2. They have signed back in, or just signed up, and have no tweets
+	
+	So we want to check if their collection of Tweets is empty or not, if so, ask them to create their first tweet. If they do have tweets, display them and allow the user to continue making tweets.
+	-->
+	<% if current_user.tweets.empty? %>
+		<p>No tweets yet!</p>
+		<p>Start tweeting:</p>
+		<!-- We'll insert the form to create a new tweet in the next step -->
+	<% else %>
+		<% current_user.tweets.each do |tweet| %>
+			<p><%= tweet.message %></p>
+		<% end %>
+			<!-- We'll insert the form to create a new tweet in the next step -->
+	<% end %>
+
+<% else %>
+	<!-- Below is the form to place the sign-in fields on this page, no one is expecting you to memorize this code. Just remember where you can copying it from (like an old/this project, or in a special file of code you want easy access to). -->
+	<div class="container">
+		<div class="col-md-6">
+			<h3>Welcome Back! Sign In:</h3><br />
+			<!-- The form to sign-in; for right now, we'll
+			have them sign-in using their name, but we may
+			change it later so that they sign in using their
+			handle instead (or maybe have it so they can do either). 
+			-->
+			<%= form_for(:user, :url => session_path(:user)) do |f| %>
+			  <p><strong>Email:</strong> <%= f.text_field :email %></p>
+			  <p><strong>Password:</strong> <%= f.password_field :password %></p>
+			  <p><%= f.check_box :remember_me %> <%= f.label :remember_me %></p>
+			  <p><%= f.submit 'Sign In' %></p>
+			  <p><%= link_to "Forgot your password?", new_password_path(:user) %></p>
+			<% end %>
+		</div>
+
+		<div class="col-md-6">
+			<h3>Not yet registered?</h3><br />
+			<!-- Let's pull the registration form from the 
+			devise Views - /devise/registrations/new.html.erb,
+			and add some new fields for the name and handle
+			which we adding in after the fact.
+			-->
+			<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+			  <%= devise_error_messages! %>
+
+			  <p><%= f.label :email %><br />
+			  <%= f.email_field :email, autofocus: true %></p>
+
+			  <p><%= f.label :name %><br />
+			  <%= f.text_field :name %></p>
+
+			  <!-- I'm going to call 'handle' 'username' when displaying to the end user -->
+			  <p><%= f.label :username %><br />
+			  @<%= f.text_field :handle %></p>
+
+			  <p><%= f.label :password %><br />
+			    <%= f.password_field :password, autocomplete: "off" %></p>
+
+			  <p><%= f.label :password_confirmation %><br />
+			    <%= f.password_field :password_confirmation, autocomplete: "off" %></p>
+
+			  <div><%= f.submit "Sign Up" %></div>
+			<% end %>	
+		</div>
+	</div>
+<% end %>
