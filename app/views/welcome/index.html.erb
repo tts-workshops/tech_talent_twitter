@@ -1,3 +1,6 @@
+<div class="pull-right">
+	<%= link_to "Sign out",destroy_user_session_path, method: :delete, class: "btn btn-warning" %>
+</div>
 <div class="page-header"><h1>Tech Talent Twitter <small>A Totally Original Idea</small></h1></div>
 
 <% if user_signed_in? %>
@@ -18,6 +21,16 @@
 		<% end %>
 			<!-- We'll insert the form to create a new tweet in the next step -->
 	<% end %>
+
+	<!-- Outside of the 'if there are any tweets yet' conditional, we'll give the User the ability to start or continue posting tweets. 
+	Now, if we want to keep things DRY, we can just render the form partial from the Tweets views folder.
+	-->
+
+	<div class="tweet-box">
+		<%= render 'tweets/form' %>
+	</div>
+
+	<!-- And below is the else condition for the 'if signed in' statement -->
 
 <% else %>
 	<!-- Below is the form to place the sign-in fields on this page, no one is expecting you to memorize this code. Just remember where you can copying it from (like an old/this project, or in a special file of code you want easy access to). -->

@@ -12,14 +12,10 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :message %><br>
-    <%= f.text_field :message %>
-  </div>
-  <div class="field">
-    <%= f.label :user_id %><br>
-    <%= f.number_field :user_id %>
+    <%= f.label "Tweet your thoughts!" %><br>
+    <%= f.text_area :message, :class => "tweet-area" %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit 'Tweet It!', :class => 'btn btn-primary' %>
   </div>
 <% end %>
