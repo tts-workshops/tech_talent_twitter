@@ -1,9 +1,14 @@
-<div class="pull-right">
-	<%= link_to "Sign out",destroy_user_session_path, method: :delete, class: "btn btn-warning" %>
-</div>
-<div class="page-header"><h1>Tech Talent Twitter <small>A Totally Original Idea</small></h1></div>
+<div class="page-header">
 
+	<div class="pull-right">
+		<%= link_to "Sign out",destroy_user_session_path, method: :delete, class: "btn btn-warning" %>
+	</div>
+	<div>
+		<h1>Tech Talent Twitter <small>A Totally Original Idea</small></h1>
+	</div>
+</div>
 <% if user_signed_in? %>
+
 
 	<!-- There are two conditions here:
 	1. They have signed back in and have tweets
@@ -14,21 +19,30 @@
 	<% if current_user.tweets.empty? %>
 		<p>No tweets yet!</p>
 		<p>Start tweeting:</p>
-		<!-- We'll insert the form to create a new tweet in the next step -->
+		<div class="tweet-box container">
+			<%= render 'tweets/form' %>
+		</div>
 	<% else %>
-		<% current_user.tweets.each do |tweet| %>
-			<p><%= tweet.message %></p>
+		<div class="tweet-box container">
+			<%= render 'tweets/form' %>
+		</div>
+		<% current_user.tweets.reverse.each do |tweet| %>
+			<div class="single-tweet container">
+					<div class="col-md-2"><%= image_tag current_user.avatar.url(:thumb), :class => "tweet-pic" %></div>
+					<div class="col-md-10">
+						<div><strong><%= current_user.name %></strong> <span class="user-handle">@<%= current_user.handle %> &#149; <%= time_ago_in_words(tweet.created_at) %></span></div>
+						<div><%= tweet.message %></div>
+					</div>
+				</div>
+			</div>
 		<% end %>
 			<!-- We'll insert the form to create a new tweet in the next step -->
 	<% end %>
-
 	<!-- Outside of the 'if there are any tweets yet' conditional, we'll give the User the ability to start or continue posting tweets. 
 	Now, if we want to keep things DRY, we can just render the form partial from the Tweets views folder.
 	-->
 
-	<div class="tweet-box">
-		<%= render 'tweets/form' %>
-	</div>
+
 
 	<!-- And below is the else condition for the 'if signed in' statement -->
 

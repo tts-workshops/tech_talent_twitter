@@ -14,8 +14,33 @@
  *= require_self
  */
 
-
 .tweet-area {
 	height: 100px;
 	width: 250px;
 }
+
+.single-tweet {
+	padding: 30px;
+	border: 1px solid blue;
+	border-radius: 10px;
+	margin-bottom: 10px;
+	width: 50% !important;
+	background-color: white;
+}
+
+.tweet-pic {
+	width: 40px;
+	height: 40px;
+}
+
+.user-handle {
+	color: gray;
+}
+
+.tweet-box {
+	padding: 30px;
+	width: 50%;
+	text-align: center;
+}
+
+

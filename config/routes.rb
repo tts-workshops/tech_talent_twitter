@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   #you can call your URL anything, as long
   #as it points to the right action in the controller:
   get 'home' => 'welcome#index'
+  get 'all_tweets' => 'welcome#all_tweets', as: :all_tweets
 
   root 'welcome#index'
 

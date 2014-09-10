@@ -1,0 +1,11 @@
+<% @tweets.reverse.each do |tweet| %>
+	<div class="single-tweet container">
+		<div class="col-md-2"><%= image_tag tweet.user.avatar.url(:thumb), :class => "tweet-pic" %></div>
+		<div class="col-md-10">
+			<div>
+				<strong><%= tweet.user.name %></strong> <span class="user-handle">@<%= tweet.user.handle %> &#149; <%= time_ago_in_words(tweet.created_at) %></span></div>
+				<div><%= tweet.message %></div>
+			</div>
+		</div>
+	</div>
+<% end %>
